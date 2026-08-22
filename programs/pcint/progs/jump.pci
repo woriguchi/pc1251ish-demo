@@ -1,0 +1,20 @@
+#TITLE JUMP
+#SCORE &C698
+# SPCで跳んで、来る棒をよける。得点はS(&C698)。
+# Jは跳んでいる残りコマ数で、その数がそのまま姿の番号になる。
+# 9から0へ数えるあいだに、上がってすぐ落ちる。0が地面。
+# INKEY$は押している間ずっと返ってくるので、前のコマの値をPに覚えておいて、
+# 変わったときだけ跳ぶ。押しっぱなしでは跳ばない。
+# CLEARを使うと下の表まで消えるので使わない。
+#POKE &00 40,08,04,02,02,02,04,08,10,10
+10 O6E J00 S00 PFF
+20 COS DEG 0A,J),J) DEG O,60,60
+30 WAIT 06
+35 IF J>00 JJ-01
+40 K INKEY$
+42 IF K=6B IF P<>6B IF J=00 J09 BEEP 40,04
+44 PK
+45 OO-02 IF O<02 O6E SS+01 BEEP 60,04
+50 IF O>08 IF O<0E IF J=00 GOTO 60
+55 GOTO 20
+60 FOR 10 SQR BEEP 60,02 NEXT CALL 00 PRINT "GAME OVER" STOP END
